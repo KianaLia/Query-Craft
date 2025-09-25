@@ -1,0 +1,16 @@
+
+.DS_Store
+.AppleDouble
+._*
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.venv/
+env/
+*.egg-info/
+
+*.log
+*.tmp
+
+.env
