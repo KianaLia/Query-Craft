@@ -1,0 +1,30 @@
+version: '3.8'
+services:
+  db:
+    image: postgres:15
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: bitpin_db
+      POSTGRES_USER: bitpin
+      POSTGRES_PASSWORD: bitpin_pass
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+  web:
+    build: ./web
+    depends_on:
+      - db
+    environment:
+      DATABASE_HOST: db
+      DATABASE_NAME: bitpin_db
+      DATABASE_USER: bitpin
+      DATABASE_PASSWORD: bitpin_pass
+    volumes:
+      - ./web:/app
+    ports:
+      - "8000:8000"
+
+volumes:
+  db_data:
