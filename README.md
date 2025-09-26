@@ -23,7 +23,7 @@ Before you begin, ensure you have the following installed:
 
     ```bash
     git clone <repository_url>
-    cd QueyCraft
+    cd QueryCraft
     ```
 
 2.  **Build and run the Docker containers:**
