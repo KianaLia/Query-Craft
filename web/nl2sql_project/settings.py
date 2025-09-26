@@ -78,9 +78,9 @@ WSGI_APPLICATION = 'nl2sql_project.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.environ.get('DATABASE_NAME', 'bitpin_db'),
-        'USER': os.environ.get('DATABASE_USER', 'bitpin'),
-        'PASSWORD': os.environ.get('DATABASE_PASSWORD', 'bitpin_pass'),
+        'NAME': os.environ.get('DATABASE_NAME', 'corporate_db'),
+        'USER': os.environ.get('DATABASE_USER', 'leo_tolstoy'),
+        'PASSWORD': os.environ.get('DATABASE_PASSWORD', 'war_and_peace'),
         'HOST': os.environ.get('DATABASE_HOST', 'db'),
         'PORT': os.environ.get('DATABASE_PORT', '5432'),
     }
