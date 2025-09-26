@@ -4,6 +4,8 @@ class Customer(models.Model):
     name = models.CharField(max_length=200)
     email = models.EmailField(unique=True)
     registration_date = models.DateTimeField()
+    class Meta:
+        db_table = "customers"  
 
     def __str__(self):
         return f"{self.name} <{self.email}>"
@@ -12,6 +14,9 @@ class Product(models.Model):
     name = models.CharField(max_length=200)
     category = models.CharField(max_length=100)
     price = models.DecimalField(max_digits=10, decimal_places=2)
+
+    class Meta:
+        db_table = "products"  
 
     def __str__(self):
         return self.name
@@ -29,6 +34,9 @@ class Order(models.Model):
     order_date = models.DateTimeField()
     quantity = models.PositiveIntegerField()
     status = models.CharField(max_length=20, choices=STATUS_CHOICES)
+
+    class Meta:
+        db_table = "orders"
 
     def __str__(self):
         return f"Order {self.id} - {self.customer_id} - {self.product_id}"

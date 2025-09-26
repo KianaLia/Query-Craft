@@ -115,9 +115,9 @@ def execute_node(state: NL2SQLState) -> Dict[str, Any]:
         return {"error": "no sql to execute"}
 
     conn = psycopg2.connect(
-        dbname=os.environ.get("DATABASE_NAME", "bitpin_db"),
-        user=os.environ.get("DATABASE_USER", "bitpin"),
-        password=os.environ.get("DATABASE_PASSWORD", "bitpin_pass"),
+        dbname=os.environ.get("DATABASE_NAME", "corporate_db"),
+        user=os.environ.get("DATABASE_USER", "leo_tolstoy"),
+        password=os.environ.get("DATABASE_PASSWORD", "war_and_peace"),
         host=os.environ.get("DATABASE_HOST", "db"),
         port=os.environ.get("DATABASE_PORT", "5432"),
     )
