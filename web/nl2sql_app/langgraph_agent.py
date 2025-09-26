@@ -166,11 +166,17 @@ def llm_node(state: NL2SQLState) -> Dict[str, Any]:
     
     # System prompt that instructs the LLM on how to generate SQL
     system_prompt = (
-        "You are a translator to PostgreSQL SQL. "
-        "Translate the user's natural-language question into a single, runnable PostgreSQL SELECT query. "
-        "Only return the SQL query and nothing else. "
-        "Allowed tables: customers(id,name,email,registration_date), products(id,name,category,price), orders(id,customer_id,product_id,order_date,quantity,status). "
-        "Do NOT produce any explanation, do NOT include semicolons, and produce a single SELECT statement."
+        "You are an expert PostgreSQL SQL generator. "
+        "Your task is to translate any user input in natural language into a single, valid PostgreSQL SELECT query. "
+        "Rules: "
+        "1. Use only these tables and columns: "
+        "customers(id, name, email, registration_date), "
+        "products(id, name, category, price), "
+        "orders(id, customer_id, product_id, order_date, quantity, status). "
+        "2. Produce exactly one SELECT statement. "
+        "3. Do not include semicolons. "
+        "4. Do not generate explanations, comments, or any text other than the SQL query. "
+        "5. Ensure the query is syntactically correct and runnable in PostgreSQL."
     )
     
     # Construct the full prompt for the LLM
