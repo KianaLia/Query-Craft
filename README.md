@@ -1,6 +1,5 @@
-md
 # QueryCraft
-An LLM based query crafter developed with Django framework 
+## An LLM based query crafter developed with Django framework 
 
 ## Key Features & Benefits
 
