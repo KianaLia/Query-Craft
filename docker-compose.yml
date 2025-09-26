@@ -1,4 +1,5 @@
 version: '3.8'
+
 services:
   db:
     image: postgres:15
@@ -12,19 +13,34 @@ services:
     ports:
       - "5432:5432"
 
+  ollama:
+    image: ollama/ollama:latest
+    container_name: ollama
+    restart: unless-stopped
+    tty: true
+    ports:
+      - "11434:11434"
+    volumes:
+      - ~/.ollama:/root/.ollama
+
   web:
     build: ./web
-    depends_on:
-      - db
+    command: ["gunicorn", "nl2sql_project.wsgi:application", "--bind", "0.0.0.0:8000"]
+    volumes:
+      - ./web:/app
     environment:
+      DJANGO_SETTINGS_MODULE: nl2sql_project.settings
       DATABASE_HOST: db
       DATABASE_NAME: bitpin_db
       DATABASE_USER: bitpin
       DATABASE_PASSWORD: bitpin_pass
-    volumes:
-      - ./web:/app
+      OLLAMA_URL: http://ollama:11434
+      OLLAMA_MODEL: sqlcoder:7b   # همون مدلی که pull کردی
     ports:
       - "8000:8000"
+    depends_on:
+      - db
+      - ollama
 
 volumes:
   db_data:

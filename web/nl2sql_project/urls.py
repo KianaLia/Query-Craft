@@ -16,7 +16,9 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from .views import nl_query
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path("api/query/", nl_query),
 ]
