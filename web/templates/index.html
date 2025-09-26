@@ -1,49 +1,165 @@
 <!doctype html>
-<html lang="fa">
+<html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>QueryCraft — پرسش به SQL</title>
+  <title>Ask Your SQL Question</title>
   <style>
-    :root{--bg:#0f1724;--card:#0b1220;--muted:#94a3b8;--accent:#60a5fa;--success:#34d399;--danger:#f87171}
-    html,body{height:100%;margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial}
-    body{background:linear-gradient(180deg,#041025 0%, #071428 100%);color:#e6eef8;display:flex;align-items:center;justify-content:center;padding:24px}
-    .card{width:100%;max-width:920px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border-radius:12px;padding:18px;box-shadow:0 6px 20px rgba(2,6,23,0.6)}
-    h1{margin:0 0 10px 0;font-size:20px}
-    p.lead{margin:0 0 18px 0;color:var(--muted)}
-    textarea{width:100%;min-height:86px;background:#021022;border:1px solid rgba(255,255,255,0.04);color:inherit;padding:12px;border-radius:8px;resize:vertical}
-    .row{display:flex;gap:12px;margin-top:12px}
-    .col{flex:1}
-    button{background:var(--accent);border:none;color:#022042;padding:10px 14px;border-radius:8px;cursor:pointer;font-weight:600}
-    button.secondary{background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--muted);font-weight:600}
-    .meta{margin-top:14px;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
-    .chip{background:rgba(255,255,255,0.03);padding:6px 10px;border-radius:999px;color:var(--muted);font-size:13px}
-    .output{margin-top:18px;background:rgba(0,0,0,0.25);padding:12px;border-radius:8px;border:1px solid rgba(255,255,255,0.02)}
-    pre.sql{white-space:pre-wrap;background:#021022;padding:10px;border-radius:6px;border:1px solid rgba(255,255,255,0.03);color:#cfe9ff;overflow:auto}
-    table{width:100%;border-collapse:collapse;margin-top:8px}
-    th,td{padding:8px 10px;border-bottom:1px dashed rgba(255,255,255,0.03);text-align:left;font-size:14px}
-    .muted{color:var(--muted)}
-    .spinner{border:4px solid rgba(255,255,255,0.06);border-left-color:var(--accent);width:22px;height:22px;border-radius:50%;animation:spin 1s linear infinite;display:inline-block}
-    @keyframes spin{to{transform:rotate(360deg)}}
-    .error{color:var(--danger);font-weight:600}
-    .success{color:var(--success);font-weight:600}
-    .controls{display:flex;gap:8px;align-items:center}
-    .small{font-size:13px;color:var(--muted)}
-    .copy-btn{background:transparent;border:1px solid rgba(255,255,255,0.06);padding:6px 8px;border-radius:6px;color:var(--muted);cursor:pointer}
+    :root {
+      --bg: #1a0f2b;
+      --card: #2a1a3f;
+      --muted: #b0a8c2;
+      --accent: #8b5cf6;
+      --success: #34d399;
+      --danger: #f87171;
+    }
+    html, body {
+      height: 100%;
+      margin: 0;
+      font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    }
+    body {
+      background: linear-gradient(180deg, #0d0518 0%, #1a0f2b 100%);
+      color: #e6eef8;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+    .card {
+      width: 100%;
+      max-width: 920px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border-radius: 12px;
+      padding: 18px;
+      box-shadow: 0 6px 20px rgba(2,6,23,0.6);
+    }
+    h1 {
+      margin: 0 0 10px 0;
+      font-size: 24px;
+      color: var(--accent);
+    }
+    p.lead {
+      margin: 0 0 18px 0;
+      color: var(--muted);
+      font-size: 16px;
+    }
+    textarea {
+      width: 100%;
+      min-height: 86px;
+      background: #1b0e33;
+      border: 1px solid rgba(255,255,255,0.05);
+      color: inherit;
+      padding: 12px;
+      border-radius: 8px;
+      resize: vertical;
+      font-size: 14px;
+    }
+    .row {
+      display: flex;
+      gap: 12px;
+      margin-top: 12px;
+    }
+    .col {
+      flex: 1;
+    }
+    button {
+      background: var(--accent);
+      border: none;
+      color: #fff;
+      padding: 10px 14px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: background 0.3s;
+    }
+    button:hover { background: #7c3aed; }
+    button.secondary {
+      background: transparent;
+      border: 1px solid rgba(255,255,255,0.06);
+      color: var(--muted);
+      font-weight: 600;
+    }
+    .meta {
+      margin-top: 14px;
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .chip {
+      background: rgba(255,255,255,0.03);
+      padding: 6px 10px;
+      border-radius: 999px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+    .output {
+      margin-top: 18px;
+      background: rgba(0,0,0,0.25);
+      padding: 12px;
+      border-radius: 8px;
+      border: 1px solid rgba(255,255,255,0.02);
+    }
+    pre.sql {
+      white-space: pre-wrap;
+      background: #1b0e33;
+      padding: 10px;
+      border-radius: 6px;
+      border: 1px solid rgba(255,255,255,0.03);
+      color: #cfe9ff;
+      overflow: auto;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 8px;
+    }
+    th, td {
+      padding: 8px 10px;
+      border-bottom: 1px dashed rgba(255,255,255,0.03);
+      text-align: left;
+      font-size: 14px;
+    }
+    .muted {
+      color: var(--muted);
+    }
+    .spinner {
+      border: 4px solid rgba(255,255,255,0.06);
+      border-left-color: var(--accent);
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      display: inline-block;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .error { color: var(--danger); font-weight: 600; }
+    .success { color: var(--success); font-weight: 600; }
+    .controls { display: flex; gap: 8px; align-items: center; }
+    .small { font-size: 13px; color: var(--muted); }
+    .copy-btn {
+      background: transparent;
+      border: 1px solid rgba(255,255,255,0.06);
+      padding: 6px 8px;
+      border-radius: 6px;
+      color: var(--muted);
+      cursor: pointer;
+    }
   </style>
 </head>
 <body>
   <div class="card" role="main">
-    <h1>QueryCraft — پرسش به SQL</h1>
-    <p class="lead">یک سؤال به فارسی یا انگلیسی بنویسید — اپ سوال را به SQL تبدیل می‌کند و از دیتابیس اجرا می‌کند.</p>
+    <h1>Ask the SQL Magician!</h1>
+    <p class="lead">Type your question here (in English or Persian)</p>
 
-    <label for="question" class="small muted">سؤال (فارسی یا English):</label>
-    <textarea id="question" placeholder="مثال: در ماه گذشته چند کاربر جدید ثبت‌نام کرده‌اند؟"></textarea>
+    <label for="question" class="small muted"></label>
+    <textarea id="question" placeholder="Example: How many users registered last month?"></textarea>
 
     <div class="row">
       <div class="col controls">
-        <button id="askBtn">بپرس</button>
-        <button id="clearBtn" class="secondary">پاک</button>
+        <button id="askBtn">ASK</button>
+        <button id="clearBtn" class="secondary">Start Over</button>
         <div id="status" style="margin-left:8px"></div>
       </div>
 
@@ -56,24 +172,23 @@
     <div class="output" id="output" hidden>
       <div style="display:flex;justify-content:space-between;align-items:center">
         <div>
-          <div class="small muted">SQL تولیدشده:</div>
+          <div class="small muted">Generated SQL Query:</div>
           <pre class="sql" id="sqlText"></pre>
         </div>
         <div style="text-align:right">
-          <button class="copy-btn" id="copySql">کپی SQL</button>
+          <button class="copy-btn" id="copySql">COPY SQL</button>
           <div style="height:6px"></div>
           <div id="verdict" class="small muted"></div>
         </div>
       </div>
 
       <div id="resultsArea" style="margin-top:12px">
-        <div class="small muted">نتایج:</div>
+        <div class="small muted">Results:</div>
         <div id="resultsTable" style="margin-top:8px"></div>
       </div>
 
       <div id="errorArea" style="margin-top:10px"></div>
     </div>
-
   </div>
 
 <script>
@@ -89,12 +204,11 @@
   const copySql = document.getElementById('copySql');
   const verdict = document.getElementById('verdict');
   const endpointPath = document.getElementById('endpoint').innerText.trim();
-
-  const API_BASE = window.location.origin; // اگر از همان دامنه سرو شود
-  const API_URL = API_BASE + endpointPath; // مثال: http://localhost:8000/api/query/
+  const API_BASE = window.location.origin;
+  const API_URL = API_BASE + endpointPath; 
 
   function setBusy(on=true){
-    status.innerHTML = on ? '<span class="spinner" aria-hidden="true"></span> در حال پردازش...' : '';
+    status.innerHTML = on ? '<span class="spinner" aria-hidden="true"></span> Processing...' : '';
     askBtn.disabled = on;
   }
 
@@ -113,9 +227,9 @@
 
   function renderResults(rows){
     resultsTable.innerHTML = '';
-    if(!rows) { resultsTable.innerHTML = '<div class="muted">نتیجه‌ای وجود ندارد.</div>'; return; }
+    if(!rows) { resultsTable.innerHTML = '<div class="muted">No results found.</div>'; return; }
     if(!Array.isArray(rows)) { resultsTable.innerHTML = '<pre>'+JSON.stringify(rows, null, 2)+'</pre>'; return; }
-    if(rows.length === 0) { resultsTable.innerHTML = '<div class="muted">ردیفی یافت نشد.</div>'; return; }
+    if(rows.length === 0) { resultsTable.innerHTML = '<div class="muted">No rows returned.</div>'; return; }
 
     const maxRows = 50;
     const cols = Object.keys(rows[0]);
@@ -143,14 +257,14 @@
       const more = document.createElement('div');
       more.className = 'small muted';
       more.style.marginTop = '6px';
-      more.textContent = `${rows.length - maxRows} ردیف دیگر مخفی است (حداکثر نمایش ${maxRows}).`;
+      more.textContent = `${rows.length - maxRows} rows hidden (max display: ${maxRows}).`;
       resultsTable.appendChild(more);
     }
   }
 
   askBtn.addEventListener('click', async ()=>{
     const question = qEl.value.trim();
-    if(!question){ alert('لطفاً ابتدا یک سؤال وارد کنید.'); return; }
+    if(!question){ alert('Please enter a question first.'); return; }
     clearOutput();
     setBusy(true);
 
@@ -163,34 +277,30 @@
 
       if(!resp.ok){
         const txt = await resp.text();
-        showError('خطا از سرور: ' + resp.status + ' — ' + txt);
+        showError('Server error: ' + resp.status + ' — ' + txt);
         setBusy(false);
         return;
       }
 
       const data = await resp.json();
       output.hidden = false;
+      sqlText.textContent = data.sql || data.response || 'No SQL generated';
 
-      // نمایش SQL
-      sqlText.textContent = data.sql || data.response || 'بدون SQL تولیدشده';
-
-      // verdict / validation
       if(typeof data.valid !== 'undefined'){
-        if(data.valid) { verdict.textContent = 'ولیدیشن: OK'; verdict.className = 'success'; }
-        else { verdict.textContent = 'ولیدیشن: خطا'; verdict.className = 'error'; }
+        if(data.valid) { verdict.textContent = 'Validation: OK'; verdict.className = 'success'; }
+        else { verdict.textContent = 'Validation: Error'; verdict.className = 'error'; }
       }
 
-      // نتایج
       if(data.result){
         renderResults(data.result);
       } else if(data.error){
         showError(data.error);
       } else {
-        resultsTable.innerHTML = '<div class="muted">نتیجه‌ای برنگشته.</div>';
+        resultsTable.innerHTML = '<div class="muted">No results returned.</div>';
       }
 
     } catch (err) {
-      showError('در برقراری ارتباط مشکلی پیش آمد: ' + err.message);
+      showError('Communication error: ' + err.message);
     } finally {
       setBusy(false);
     }
@@ -204,7 +314,7 @@
   copySql.addEventListener('click', ()=>{
     const text = sqlText.textContent;
     if(!text) return;
-    navigator.clipboard?.writeText(text).then(()=>{ alert('SQL کپی شد'); }).catch(()=>{ alert('کپی ناموفق'); })
+    navigator.clipboard?.writeText(text).then(()=>{ alert('SQL copied'); }).catch(()=>{ alert('Copy failed'); });
   });
 
 })();
