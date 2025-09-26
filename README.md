@@ -1,6 +1,6 @@
 md
-# QueyCraft
-An LLM Based Query Crafter
+# QueryCraft
+An LLM based query crafter developed with Django framework 
 
 ## Key Features & Benefits
 
@@ -46,7 +46,7 @@ Once the application is running:
 
 2.  **Enter your natural language query:** Type your query into the provided text box.
 
-3.  **Submit the query:** Click the "Generate SQL" button.
+3.  **Submit the query:** Click the "ASK" button.
 
 4.  **View the generated SQL:** The generated SQL query will be displayed on the page.
 
@@ -59,47 +59,6 @@ The following configuration options are available via environment variables (set
 *   **DJANGO_SETTINGS_MODULE:** Specifies the Django settings module (default: `nl2sql_project.settings`).
 *   **Other Django settings:** Refer to the Django documentation for configurable settings such as database connection details.
 
-**Environment Variables in `docker-compose.yml` example:**
-```yaml
-version: "3.8"
-services:
-  web:
-    build: ./web
-    ports:
-      - "8000:8000"
-    environment:
-      DJANGO_SETTINGS_MODULE: "nl2sql_project.settings"
-    volumes:
-      - ./web:/app
-```
-
-## Contributing Guidelines
-
-We welcome contributions to QueyCraft! To contribute:
-
-1.  **Fork the repository:** Create your own fork of the repository on GitHub.
-
-2.  **Create a branch:** Create a new branch for your feature or bug fix.
-
-    ```bash
-    git checkout -b feature/your-feature-name
-    ```
-
-3.  **Make your changes:** Implement your changes and ensure they are well-tested.
-
-4.  **Commit your changes:** Commit your changes with descriptive commit messages.
-
-    ```bash
-    git commit -m "Add: Implemented new feature"
-    ```
-
-5.  **Push to your fork:** Push your branch to your forked repository.
-
-    ```bash
-    git push origin feature/your-feature-name
-    ```
-
-6.  **Create a pull request:** Submit a pull request to the main repository.  Provide a clear description of the changes you've made.
 
 ## License Information
 License information is not yet specified for this project.
