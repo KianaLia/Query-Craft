@@ -4,10 +4,6 @@ services:
   db:
     image: postgres:15
     restart: unless-stopped
-    environment:
-      POSTGRES_DB: bitpin_db
-      POSTGRES_USER: bitpin
-      POSTGRES_PASSWORD: bitpin_pass
     volumes:
       - db_data:/var/lib/postgresql/data
     ports:
@@ -28,14 +24,6 @@ services:
     command: ["gunicorn", "nl2sql_project.wsgi:application", "--bind", "0.0.0.0:8000"]
     volumes:
       - ./web:/app
-    environment:
-      DJANGO_SETTINGS_MODULE: nl2sql_project.settings
-      DATABASE_HOST: db
-      DATABASE_NAME: bitpin_db
-      DATABASE_USER: bitpin
-      DATABASE_PASSWORD: bitpin_pass
-      OLLAMA_URL: http://ollama:11434
-      OLLAMA_MODEL: sqlcoder:7b   # همون مدلی که pull کردی
     ports:
       - "8000:8000"
     depends_on:
